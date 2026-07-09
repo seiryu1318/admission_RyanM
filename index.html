@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#020817" />
-<title>2023 - 2026 입시결과 검색기 Mobile Light ver.16</title>
+<title>2023 - 2026 입시결과 검색기 Mobile Light ver.21</title>
 <style>
 :root{
   color-scheme:dark;
@@ -469,7 +469,7 @@ input,select,button{max-width:100%!important;}
 <body style="background:#020817;color:#edf7ff;overflow-x:hidden;">
 <div class="water-bg" aria-hidden="true"></div>
 <header class="app-header">
-  <div class="title-line"><h1>2023 - 2026 입시결과 검색기 <span class="ver">Mobile ver.16</span></h1><span class="lite-badge">모바일 라이트</span></div>
+  <div class="title-line"><h1>2023 - 2026 입시결과 검색기 <span class="ver">Mobile ver.21</span></h1><span class="lite-badge">모바일 라이트</span></div>
   <p class="subtitle">학생부종합전형은 정성평가이므로, 참고만 하시기 바랍니다.</p>
   <p class="subtitle mobile-guide-note">본 자료는 모바일에 최적화 되어 있습니다. PC 버전은 아래 <b>'PC 버전'</b>을 클릭하기 바랍니다.</p>
   <a class="device-switch pc-link" href="https://seiryu1318.github.io/admission_Ryan/" aria-label="PC 버전으로 이동">PC 버전 ↗</a>
@@ -772,7 +772,7 @@ select#sAdm,select#recRegion,select#recField,select#regionSelect{cursor:pointer!
 
 
 <style id="mobile-ver15-performance-polish">
-/* Mobile ver.16: 여대 제외 필터 + 초기 전형명 목록 지연 로딩 + 저부하 UI */
+/* Mobile ver.21: 여대 제외 필터 + 초기 전형명 목록 지연 로딩 + 저부하 UI */
 .checkline input[id$="Women"]{accent-color:#60a5fa}
 .checkline:has(input[id$="Women"]){border-color:rgba(96,165,250,.44);background:rgba(30,64,175,.18)}
 .water-bg:before{opacity:.08!important;animation-duration:96s!important}
@@ -794,7 +794,7 @@ select#sAdm{cursor:pointer!important}
 
 
 <style id="mobile-ver16-usability-first-fixes">
-/* Mobile ver.16: 사용성 우선, 박스 침범 방지, 선택사항 배지, 재조회 안내 */
+/* Mobile ver.21: 사용성 우선, 박스 침범 방지, 선택사항 배지, 재조회 안내 */
 html,body{max-width:100%;overflow-x:hidden!important}.app,.tab-panel,.panel,.section,.mode-box{max-width:100%;box-sizing:border-box}.panel:before,.mode-box:before,.section:before{display:none!important}.panel,.mode-box{position:relative!important;isolation:isolate!important;overflow:hidden!important}.panel>* ,.mode-box>*{position:relative;z-index:1}.btns,.seg,.tabs,.type-buttons,.track-checks,.checkline{position:relative;z-index:2}.optional-badge{display:inline-flex;align-items:center;margin-left:6px;padding:2px 7px;border-radius:999px;border:1px solid rgba(125,211,252,.34);background:rgba(14,165,233,.14);color:#bae6fd;font-size:10px;font-weight:1000;vertical-align:middle}.field-help{display:block;margin-top:3px;color:#9fbad6;font-size:11px;font-weight:800}.mode-box.active{border:1px solid rgba(56,189,248,.42);box-shadow:inset 0 0 0 1px rgba(56,189,248,.12)}.checkline{width:auto!important;max-width:100%;display:inline-flex!important;margin:5px 6px 5px 0!important}.table-scroll,.result-list,.chart-card{max-width:100%;overflow-x:auto;overscroll-behavior-inline:contain}.needs-click{animation:mNeedClick 1.2s ease-in-out infinite!important;border-color:#fde68a!important;box-shadow:0 0 0 4px rgba(250,204,21,.16),0 0 22px rgba(250,204,21,.28)!important}@keyframes mNeedClick{0%,100%{transform:translateY(0)}50%{transform:translateY(-1px)}}.update-alert{margin:10px 0 12px;padding:10px 12px;border-radius:14px;border:1px solid rgba(250,204,21,.46);background:rgba(250,204,21,.12);color:#fef9c3;font-weight:950;font-size:12px;line-height:1.55}.guide-current{outline-offset:1px!important;box-shadow:0 0 0 2px rgba(14,165,233,.12),0 0 13px rgba(56,189,248,.16)!important}.guide-current input,.guide-current select,input.guide-current,select.guide-current,button.guide-current{box-shadow:0 0 0 3px rgba(56,189,248,.12),0 0 12px rgba(14,165,233,.12)!important}.water-bg:before{opacity:.06!important;animation-duration:115s!important;filter:blur(8px)!important}.water-bg:after{display:none!important}@media(max-width:380px){.tab{padding:0 12px}.section{padding:14px}.checkline{font-size:12px}}@media(prefers-reduced-motion:reduce){.needs-click,.water-bg:before{animation:none!important}}
 </style>
 <script id="mobile-ver16-usability-first-js">
@@ -858,6 +858,296 @@ html,body{max-width:100%;overflow-x:hidden!important}.app,.tab-panel,.panel,.sec
   function patchHelp(){document.querySelectorAll('.help-card p,.help-card li').forEach(n=>{n.innerHTML=n.innerHTML.replace(/세부 계열\(선택\)/g,'세부 계열 <b>(선택사항)</b>').replace(/학과명\(선택\)/g,'학과명 <b>(선택사항)</b>');});}
   function init(){ensureRegionDept(); patchInstructions(); patchHelp(); installDirty(); enhancedPopulateSelectSearch(); ['sSelUniv','sSelAdmission','sSelDept','sSelExact','sSelNoRegional','sSelNoWomen'].forEach(id=>{const n=$(id); if(n)['input','focus','click','change','keyup','blur'].forEach(ev=>n.addEventListener(ev,()=>setTimeout(enhancedPopulateSelectSearch,20)));}); document.querySelector('#typeButtonsSearchSelect')?.addEventListener('click',()=>setTimeout(enhancedPopulateSelectSearch,40)); ['regionDept','regionField','regionSelect','gradeBand','regionExact','regionNoRegional','regionNoWomen'].forEach(id=>$(id)?.addEventListener('change',()=>{})); document.addEventListener('click',()=>setTimeout(()=>{patchInstructions();enhancedPopulateSelectSearch();},60)); document.addEventListener('change',()=>setTimeout(patchInstructions,30)); setTimeout(()=>{patchInstructions();enhancedPopulateSelectSearch();},300);}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>
+
+
+<style id="mobile-ver17-stability-polish">
+/* Mobile ver.21: 체크박스 선택 상태 시각화, 좌우 흔들림 방지, 사용성 우선 */
+html,body{max-width:100%;overflow-x:hidden!important;}
+.app,.tab-panel,.panel,.section,.mode-box,.result-list{max-width:100%;min-width:0;box-sizing:border-box;}
+.table-scroll,.chart-card,.result-card{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;}
+.checkline{user-select:none;transition:border-color .15s ease,background .15s ease,box-shadow .15s ease;}
+.checkline input[type="checkbox"]{width:16px!important;height:16px!important;appearance:auto!important;-webkit-appearance:auto!important;accent-color:#22d3ee!important;opacity:1!important;flex:0 0 auto;}
+.checkline.checked,.checkline:has(input:checked){border-color:#7dd3fc!important;background:linear-gradient(135deg,rgba(14,165,233,.28),rgba(37,99,235,.22))!important;box-shadow:0 0 0 2px rgba(56,189,248,.12),0 0 18px rgba(56,189,248,.16)!important;color:#fff!important;}
+.checkline.checked::after{content:"선택";font-size:10px;font-weight:1000;color:#a7f3d0;margin-left:auto;}
+.result-card{content-visibility:auto;contain-intrinsic-size:210px;}
+.water-bg:before{opacity:.055!important;animation-duration:130s!important;filter:blur(8px)!important;}
+.panel,.mode-box{overflow:hidden;}
+@media(max-width:380px){.tab{padding:0 10px}.section{padding:13px}.checkline{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.water-bg:before{animation:none!important}}
+</style>
+<script id="mobile-ver17-stability-polish-js">
+(function(){
+  const $=id=>document.getElementById(id);
+  function syncChecks(){document.querySelectorAll('.checkline').forEach(l=>{const cb=l.querySelector('input[type="checkbox"]');if(cb)l.classList.toggle('checked',!!cb.checked);});}
+  function updateHelp(){const help=document.querySelector('#tabHelp');if(!help)return;const common=[...help.querySelectorAll('.help-card')].find(c=>/공통 기능/.test(c.textContent));if(common&&!common.dataset.v17){common.dataset.v17='1';common.insertAdjacentHTML('beforeend','<p><b>체크박스 필터</b>는 선택되면 파란색으로 유지됩니다. 조건을 바꾼 뒤에는 검색·비교·추천·조회 버튼을 눌러 결과를 갱신하세요.</p>');}}
+  function bind(){document.addEventListener('change',syncChecks,true);document.addEventListener('click',()=>setTimeout(syncChecks,30),true);syncChecks();updateHelp();}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind);else bind();
+})();
+</script>
+
+
+
+<style id="mobile-ver17-final-checkbox-css">
+/* Mobile ver.21 final: 체크박스 선택 상태 명확화 */
+.checkline.checked,.checkline:has(input:checked),.track-checks .checkline.checked,.track-checks .checkline:has(input:checked){
+  border-color:#7dd3fc!important;background:linear-gradient(135deg,rgba(14,165,233,.30),rgba(37,99,235,.22))!important;color:#fff!important;box-shadow:0 0 0 1px rgba(56,189,248,.18),0 0 14px rgba(56,189,248,.16)!important;
+}
+.checkline input[type="checkbox"]{width:18px!important;height:18px!important;accent-color:#22d3ee!important;}
+</style>
+<script id="mobile-ver17-final-checkbox-js">
+(function(){
+  function sync(root=document){root.querySelectorAll('.checkline').forEach(l=>{const cb=l.querySelector('input[type="checkbox"]'); if(cb)l.classList.toggle('checked',!!cb.checked);});}
+  window.__mobileV17FinalSyncChecks=sync;
+  document.addEventListener('change',e=>{if(e.target.matches('input[type="checkbox"]'))setTimeout(()=>sync(document),0);},true);
+  // Checkbox click propagation is left intact for mobile reliability.
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>sync(document)); else sync(document);
+})();
+</script>
+
+
+<style id="mobile-ver18-stability-minor">
+/* 모바일 ver.19: 화면 흔들림 방지와 탭 안정화 보완 */
+html,body{max-width:100%!important;overflow-x:hidden!important;}
+*{box-sizing:border-box!important;}
+.table-wrap,.mini-table-wrap,.raw-table-wrap,.chart-scroll{max-width:100%!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior-x:contain!important;}
+.mobile-tabs,.tabs{max-width:100%!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important;}
+.mobile-tabs::-webkit-scrollbar,.tabs::-webkit-scrollbar{display:none!important;}
+.card,.panel,.section{min-width:0!important;max-width:100%!important;}
+</style>
+
+
+
+<style id="mobile-ver19-readability-speed-css">
+/* Mobile ver.21: 사용성 우선 가독성·속도 보정 */
+html,body{max-width:100%!important;overflow-x:hidden!important;}
+body{background:linear-gradient(180deg,#041020 0%,#071a34 44%,#061226 100%)!important;}
+.app{padding-bottom:28px!important;}
+.mobile-tabs,.tabs{position:sticky!important;top:0!important;z-index:50!important;display:flex!important;gap:8px!important;align-items:center!important;padding:10px 10px!important;background:rgba(4,14,30,.94)!important;border:1px solid rgba(56,189,248,.22)!important;border-radius:0 0 18px 18px!important;box-shadow:0 12px 28px rgba(0,0,0,.28)!important;backdrop-filter:none!important;}
+.tab{flex:0 0 auto!important;min-width:max-content!important;height:44px!important;padding:0 14px!important;border-radius:999px!important;white-space:nowrap!important;}
+.section,.panel{padding:16px!important;border-radius:18px!important;}
+.mode-box{padding:14px!important;border-radius:18px!important;overflow:hidden!important;}
+input,select,button{font-size:15px!important;}
+input,select{min-height:48px!important;}
+.checkline{min-height:42px!important;line-height:1.35!important;}
+.result-card{border-radius:18px!important;margin-bottom:12px!important;content-visibility:auto;contain-intrinsic-size:190px;}
+.card-title{line-height:1.35!important;word-break:keep-all!important;overflow-wrap:anywhere!important;}
+.table-scroll,.chart-card,.result-list,.result-card{max-width:100%!important;overflow-x:auto!important;overscroll-behavior-x:contain!important;-webkit-overflow-scrolling:touch!important;}
+.water-bg:before{opacity:.045!important;filter:blur(9px)!important;animation-duration:150s!important;}
+@media(max-width:380px){.section,.panel{padding:13px!important}.tab{height:40px!important;padding:0 12px!important;font-size:12px!important}}
+@media(prefers-reduced-motion:reduce){.water-bg:before{animation:none!important}}
+</style>
+
+<script id="mobile-ver19-speed-hint-js">
+(function(){
+  const $=id=>document.getElementById(id);
+  if(window.__MOBILE_VER19_PATCHED__)return; window.__MOBILE_VER19_PATCHED__=true;
+  function setHint(tabId,msg){const tab=$(tabId); if(!tab)return; let n=tab.querySelector('.mobile-action-hint'); if(!n){n=document.createElement('div'); n.className='mobile-action-hint'; n.style.cssText='margin:10px 0 12px;padding:11px 12px;border-radius:14px;border:1px solid rgba(56,189,248,.38);background:rgba(14,165,233,.10);color:#dff7ff;font-weight:900;line-height:1.45;'; const first=tab.querySelector('.section,.panel')||tab.firstElementChild; if(first)first.insertAdjacentElement('beforebegin',n); else tab.prepend(n);} n.innerHTML=msg;}
+  function initHints(){
+    setHint('tabSearch','입력 중에는 결과를 계산하지 않습니다. 조건을 입력한 뒤 <b>검색</b> 버튼을 눌러야 결과가 표시됩니다.');
+    setHint('tabCompare','비교 조건을 입력한 뒤 <b>비교</b> 버튼을 눌러야 결과가 표시됩니다.');
+    setHint('tabRecommend','등급과 조건을 입력한 뒤 <b>추천 보기</b> 버튼을 눌러야 결과가 표시됩니다.');
+    setHint('tabRegion','지역·계열·학과 조건을 입력한 뒤 <b>조회</b> 버튼을 눌러야 결과가 표시됩니다.');
+  }
+  function normalizeFirstPaint(){document.documentElement.style.overflowX='hidden'; document.body.style.overflowX='hidden';}
+  function init(){normalizeFirstPaint(); initHints();}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>
+
+<style id="mobile-ver20-clean-layout-speed">
+/* Mobile ver.21: 이전 모바일형 단일 열 레이아웃 복원 + 사용성 우선 */
+html,body{width:100%!important;max-width:100%!important;overflow-x:hidden!important;background:#020817!important;}
+body{padding-bottom:18px!important;}
+.app-header,.app{width:100%!important;max-width:560px!important;margin-left:auto!important;margin-right:auto!important;padding-left:12px!important;padding-right:12px!important;overflow-x:hidden!important;}
+.tabs{position:sticky!important;top:0!important;bottom:auto!important;left:auto!important;right:auto!important;width:100%!important;max-width:100%!important;height:auto!important;min-height:58px!important;max-height:none!important;margin:8px 0 14px!important;padding:8px!important;border-radius:18px!important;display:flex!important;flex-wrap:nowrap!important;overflow-x:auto!important;overflow-y:hidden!important;align-items:center!important;gap:8px!important;z-index:80!important;box-shadow:0 10px 24px rgba(2,6,23,.28)!important;backdrop-filter:none!important;}
+.tabs .tab{flex:0 0 auto!important;min-width:84px!important;height:44px!important;min-height:44px!important;padding:0 14px!important;border-radius:999px!important;font-size:13px!important;white-space:nowrap!important;}
+.split{display:block!important;grid-template-columns:1fr!important;gap:0!important;}
+.split>.panel,.split>section.panel{position:static!important;top:auto!important;width:100%!important;max-width:100%!important;}
+.panel,.section,.mode-box,.result-card,.metric,.help-card,.chart-card{max-width:100%!important;overflow:hidden!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:0 9px 22px rgba(2,6,23,.24)!important;}
+.mode-box.active,.section{overflow:visible!important;}
+.summary{grid-template-columns:1fr!important;gap:10px!important;}
+.result-list{display:block!important;max-width:100%!important;overflow:hidden!important;}
+.result-card{margin-bottom:10px!important;}
+.table-wrap,.raw-scroll,.data-scroll,.year-table,.chart-box,.chart-card{max-width:100%!important;overflow-x:auto!important;overflow-y:hidden!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior-x:contain!important;}
+.table-wrap table,.raw-scroll table,.data-scroll table,.year-table table{width:max-content!important;min-width:700px!important;max-width:none!important;}
+.track-checks{display:flex!important;flex-wrap:wrap!important;gap:8px!important;align-items:center!important;margin:8px 0 10px!important;}
+.track-checks .checkline{flex:1 1 calc(50% - 8px)!important;min-height:42px!important;border-radius:13px!important;justify-content:flex-start!important;padding:9px 11px!important;margin:0!important;}
+.checkline input[type="checkbox"]{width:18px!important;height:18px!important;min-height:18px!important;margin:0!important;}
+.btns, .seg, .type-buttons, .judge-buttons{gap:8px!important;align-items:center!important;}
+button.primary,button.secondary,.pill-btn,.type-filter,.judge-filter,.more-btn,.btns button{min-height:42px!important;border-radius:14px!important;padding:0 13px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;line-height:1.15!important;white-space:nowrap!important;}
+input,select{max-width:100%!important;}
+.water-bg:before{opacity:.18!important;filter:blur(8px) saturate(1.05)!important;animation-duration:72s!important;}.water-bg:after{opacity:.08!important;filter:blur(12px)!important;animation-duration:96s!important;}
+body:before,body:after{display:none!important;}
+@media(max-width:420px){.app-header,.app{padding-left:10px!important;padding-right:10px!important}.tabs .tab{min-width:78px!important;padding:0 12px!important;font-size:12.5px!important}.section{padding:13px!important}.track-checks .checkline{flex:1 1 100%!important}.card-stats{grid-template-columns:1fr 1fr!important}}
+@media(prefers-reduced-motion:reduce){.water-bg:before,.water-bg:after,.tab-panel.active,.result-card{animation:none!important;transition:none!important}}
+</style>
+<script id="mobile-ver20-no-live-and-layout">
+(()=>{
+  const $=id=>document.getElementById(id);
+  function promptSearch(msg='조건을 입력한 뒤 <b>검색</b> 버튼을 눌러야 결과가 표시됩니다. 입력 중에는 결과를 계산하지 않습니다.'){if($('searchStatus'))$('searchStatus').textContent='검색 버튼을 눌러 조회하세요.';if($('searchList'))$('searchList').innerHTML=`<div class="empty">${msg}</div>`;if($('searchSummary'))$('searchSummary').innerHTML='<div class="empty" style="grid-column:1/-1">검색 조건을 입력하면 선택 연도 기준 평균 등급이 표시됩니다.</div>';}
+  function patchTexts(){document.querySelectorAll('.help-card li,.help-card p,.empty').forEach(n=>{n.innerHTML=n.innerHTML.replace(/검색어를 바꾸면 바로 재계산하지 않으며/g,'검색어를 바꿔도 자동 재계산하지 않으며').replace(/검색·비교·추천·조회 버튼을 눌러야/g,'반드시 검색·비교·추천·조회 버튼을 눌러야');});}
+  // 실시간 조회 방지: 입력 중에는 안내만, 실제 조회는 버튼 클릭 시 기존 run 함수 사용
+  ['sUniv','sField','sDept','sSelUniv','cmpDept','cmpUniv1','cmpUniv2','cmpUniv3','recGrade','recDept','recField','regionDeptInput','regionFieldInput'].forEach(id=>{
+    const node=$(id); if(!node) return; node.addEventListener('input',()=>{ if(id.startsWith('s')) promptSearch(); }, true);
+  });
+  document.addEventListener('change',e=>{ if(e.target?.matches('#sExact,#sNoRegional,#sNoWomen,#sTrackChecks input,#sAdm')) promptSearch(); }, true);
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{patchTexts();promptSearch();});else{patchTexts();promptSearch();}
+})();
+</script>
+
+
+
+<style id="mobile-ver20-layout-speed-css">
+/* Mobile ver.21: 이전 안정형 레이아웃 복구 + 모바일 전용 최적화 */
+html,body{width:100%!important;max-width:100%!important;overflow-x:hidden!important;background:linear-gradient(180deg,#041020 0%,#061832 58%,#04101f 100%)!important;}
+body{touch-action:pan-y!important;}
+.app{width:100%!important;max-width:540px!important;margin:0 auto!important;padding-left:12px!important;padding-right:12px!important;overflow-x:hidden!important;}
+.app-header{width:100%!important;max-width:540px!important;margin:0 auto!important;}
+.mobile-tabs,.tabs{position:sticky!important;top:0!important;bottom:auto!important;left:auto!important;right:auto!important;width:100%!important;max-width:100%!important;height:auto!important;max-height:none!important;z-index:80!important;display:flex!important;flex-wrap:nowrap!important;overflow-x:auto!important;overflow-y:hidden!important;gap:8px!important;padding:9px!important;margin:10px 0 12px!important;border-radius:18px!important;background:rgba(4,14,30,.94)!important;border:1px solid rgba(56,189,248,.24)!important;box-shadow:0 10px 22px rgba(0,0,0,.28)!important;backdrop-filter:none!important;-webkit-overflow-scrolling:touch!important;}
+.mobile-tabs::-webkit-scrollbar,.tabs::-webkit-scrollbar{display:none!important;}
+.tab{flex:0 0 auto!important;min-width:max-content!important;width:auto!important;height:42px!important;min-height:42px!important;padding:0 13px!important;border-radius:999px!important;font-size:12.5px!important;line-height:1!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;white-space:nowrap!important;}
+.split{display:block!important;width:100%!important;max-width:100%!important;overflow-x:hidden!important;}
+.split>.panel{position:static!important;top:auto!important;}
+.panel,.section,.mode-box,.result-card,.detail,.help-card,.chart-card{width:100%!important;max-width:100%!important;min-width:0!important;overflow-x:hidden!important;box-sizing:border-box!important;}
+.section,.panel{padding:15px!important;border-radius:18px!important;}
+.mode-box{padding:14px!important;border-radius:18px!important;}
+.row2,.row3,.summary,.help-grid,.chart-grid{display:grid!important;grid-template-columns:1fr!important;gap:10px!important;}
+.card-stats{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;}
+input,select{min-height:48px!important;border-radius:14px!important;font-size:15px!important;}
+.btns button,button.primary,button.secondary{min-height:44px!important;border-radius:14px!important;padding:10px 14px!important;}
+.checkline,.track-checks .checkline{border-radius:14px!important;min-height:42px!important;padding:9px 11px!important;}
+.track-checks{display:flex!important;flex-wrap:wrap!important;gap:8px!important;}
+.track-checks .checkline{flex:1 1 calc(50% - 8px)!important;justify-content:flex-start!important;}
+.checkline.checked,.checkline:has(input:checked){border-color:#7dd3fc!important;background:linear-gradient(135deg,rgba(14,165,233,.28),rgba(37,99,235,.18))!important;box-shadow:0 0 0 1px rgba(56,189,248,.15)!important;}
+.table-scroll,.table-wrap,.mini-table-wrap,.raw-table-wrap,.chart-scroll,.chart-card svg,.result-card{max-width:100%!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior-x:contain!important;}
+.result-card{content-visibility:auto;contain-intrinsic-size:190px;}
+.result-list{display:grid!important;grid-template-columns:1fr!important;gap:10px!important;}
+.water-bg:before{opacity:.045!important;filter:blur(8px)!important;animation-duration:160s!important;}
+.water-bg:after{opacity:.025!important;filter:blur(12px)!important;animation-duration:180s!important;}
+@media (min-width:720px){.app,.app-header{max-width:540px!important}.split{display:block!important}.summary{grid-template-columns:1fr!important}.card-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}.help-grid,.chart-grid{grid-template-columns:1fr!important}.result-list.grid-cards{grid-template-columns:1fr!important}.tabs{top:0!important}.chart-card svg{min-height:180px!important}}
+@media (max-width:380px){.app{padding-left:10px!important;padding-right:10px!important}.tab{height:40px!important;min-height:40px!important;padding:0 11px!important;font-size:12px!important}.section,.panel{padding:13px!important}.track-checks .checkline{flex:1 1 100%!important}}
+@media (prefers-reduced-motion:reduce){.water-bg:before,.water-bg:after{animation:none!important}}
+</style>
+
+<script id="mobile-ver20-search-speed-js">
+(function(){
+  const $=id=>document.getElementById(id);
+  if(window.__MOBILE_VER20_PATCHED__) return; window.__MOBILE_VER20_PATCHED__=true;
+  function key(){
+    const ids=['sUniv','sAdm','sField','sDept','sSelUniv','sSelType','sSelAdmission','sSelDept','cmpDept','cmpU1','cmpU2','cmpU3','recGrade','recDept','regionDept','regionField'];
+    const vals=ids.map(id=>$(id)?.value||'');
+    const checks=[...document.querySelectorAll('input[type="checkbox"]')].filter(x=>x.id&&x.closest('.tab-panel.active,#tabSearch,#tabCompare,#tabRecommend,#tabRegion')).map(x=>x.id+':'+x.checked).join('|');
+    const years=state?.years?[...state.years].sort().join(','):'';
+    return vals.join('||')+'::'+checks+'::'+years+'::'+($('searchSort')?.value||'');
+  }
+  const cache=new Map();
+  const oldRunSearch=(typeof runSearch==='function')?runSearch:null;
+  if(oldRunSearch){
+    window.runSearch=function(reset=true){
+      try{
+        if(reset) state.limits.search=20;
+        if(typeof hasSearchQuery==='function' && !hasSearchQuery()){ if(typeof showSearchPrompt==='function')showSearchPrompt(); return; }
+        const k=key(); let items=cache.get(k);
+        if(!items){ const rows=getSearchRows(); items=sortItems(groupRows(rows),$('searchSort')?.value); if(cache.size>18)cache.clear(); cache.set(k,items); }
+        state.searchItems=items;
+        renderMetrics('searchSummary',items,'search');
+        $('searchStatus').textContent=items.length?`${Math.min(state.limits.search,items.length)}건 표시 / 전체 ${items.length}건`:'검색 결과가 없습니다.';
+        const visible=items.slice(0,state.limits.search);
+        $('searchList').innerHTML=visible.length?visible.map((it,i)=>baseCard(it,i)).join(''):'<div class="empty">입력 조건에 해당하는 검색 결과가 없습니다.</div>';
+        $('moreSearch').hidden=items.length<=state.limits.search;
+        $('searchDetail').className='empty'; $('searchDetail').innerHTML='결과 카드를 누르면 연도별 자료와 그래프가 표시됩니다.';
+      }catch(e){console.error('[mobile ver.20 search]',e); oldRunSearch(reset);}
+    };
+    try{runSearch=window.runSearch;}catch(e){}
+  }
+  function markSearchPrompt(){
+    const area=$('searchList'); if(area && (!state.searchItems||!state.searchItems.length)){area.innerHTML='<div class="empty">입력 중에는 결과를 계산하지 않습니다. <b>검색</b> 버튼을 눌러 결과를 표시하세요.</div>';}
+  }
+  document.addEventListener('input',e=>{ if(e.target.closest('#tabSearch')){cache.clear(); setTimeout(markSearchPrompt,0);} },true);
+  document.addEventListener('change',e=>{ if(e.target.closest('#tabSearch')){cache.clear(); setTimeout(markSearchPrompt,0);} },true);
+  function init(){markSearchPrompt(); document.documentElement.style.overflowX='hidden'; document.body.style.overflowX='hidden';}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init); else init();
+})();
+</script>
+
+
+<style id="mobile-ver21-readability-speed">
+/* Mobile ver.21: useability-first polish, stable cards, square check chips */
+body{overflow-x:hidden!important;}
+.app,header.app-header{max-width:720px!important;margin-left:auto!important;margin-right:auto!important;}
+.tabs{overflow-x:auto!important;overflow-y:hidden!important;white-space:nowrap!important;gap:8px!important;padding:10px!important;}
+.tabs .tab{flex:0 0 auto!important;min-width:96px!important;height:42px!important;min-height:42px!important;padding:0 12px!important;border-radius:999px!important;}
+.section{padding:16px!important;margin:12px 0!important;}
+.mode-box{overflow:visible!important;}
+.track-checks{display:flex!important;gap:8px!important;flex-wrap:wrap!important;margin:8px 0 12px!important;}
+.track-checks .checkline,.checkline{border-radius:14px!important;min-height:40px!important;padding:9px 11px!important;background:rgba(15,34,62,.64)!important;border:1px solid rgba(96,165,250,.34)!important;}
+.track-checks .checkline:has(input:checked),.checkline:has(input:checked){border-color:#7dd3fc!important;background:linear-gradient(135deg,rgba(14,165,233,.30),rgba(37,99,235,.22))!important;box-shadow:0 0 0 1px rgba(56,189,248,.16),0 0 14px rgba(56,189,248,.12)!important;}
+.result-card{animation:none!important;}
+.water-bg:before{opacity:.16!important;animation-duration:72s!important;filter:blur(7px)!important}.water-bg:after{opacity:.06!important;animation-duration:96s!important;filter:blur(9px)!important}
+.update-alert,.notice{line-height:1.6!important;word-break:keep-all!important;}
+.result-list{min-width:0!important}.result-card{min-width:0!important;max-width:100%!important}
+.table-wrap{max-width:100%!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch!important;}
+@media(max-width:420px){.app,header.app-header{max-width:100%!important}.section{padding:14px!important}.tabs .tab{min-width:90px!important;font-size:12px!important}}
+</style>
+<script id="mobile-ver21-final-behavior">
+(()=>{
+  const $=id=>document.getElementById(id);
+  const text=v=>(v??'').toString().trim();
+  const nrm=v=>{try{return (typeof norm==='function'?norm(v):text(v).normalize('NFC').toLowerCase().replace(/\s/g,''));}catch(e){return text(v);}};
+  const len=v=>Array.from(nrm(v)).length;
+  const anyChecked=id=>!!document.querySelector(`#${id} input:checked`);
+  function keywordOtherFilled(){return !!(text($('sAdm')?.value)||text($('sField')?.value)||text($('sDept')?.value)||anyChecked('sTrackChecks'));}
+  function selectOtherFilled(){return !!(text($('sSelAdmission')?.value)||text($('sSelDept')?.value));}
+  function shortUnivOnly(){
+    const mode=state?.searchMode||'keyword';
+    if(mode==='keyword'){
+      const u=text($('sUniv')?.value); if(!u)return false; return len(u)<2&&!keywordOtherFilled();
+    }
+    const u=text($('sSelUniv')?.value); if(!u)return false; return len(u)<2&&!selectOtherFilled();
+  }
+  function shortPrompt(){
+    if($('searchStatus'))$('searchStatus').textContent='대학명 입력 대기';
+    if($('searchList'))$('searchList').innerHTML='<div class="empty">대학명만으로 검색할 때는 두 글자 이상 입력한 뒤 <b>검색</b> 버튼을 누르세요. 예: 고려, 동국, 광운</div>';
+    if($('searchSummary'))$('searchSummary').innerHTML='<div class="empty" style="grid-column:1/-1">입력 중에는 결과를 계산하지 않습니다. 검색 버튼을 누르면 조건에 맞는 결과를 출력합니다.</div>';
+    if($('moreSearch'))$('moreSearch').hidden=true;
+  }
+  const prevRun=typeof runSearch==='function'?runSearch:null;
+  if(prevRun){
+    runSearch=function(reset=true){
+      if(shortUnivOnly()){shortPrompt();return;}
+      return prevRun(reset);
+    };
+  }
+  // 추천 판정 필터: 일반 클릭은 단일 선택, Ctrl/Shift/⌘ 클릭은 복수 선택
+  const judgeBox=$('judgeButtons');
+  if(judgeBox){
+    judgeBox.addEventListener('click',e=>{
+      const b=e.target.closest('button[data-judge]'); if(!b)return;
+      e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+      const v=b.dataset.judge;
+      if(e.ctrlKey||e.metaKey||e.shiftKey){
+        state.judges.has(v)?state.judges.delete(v):state.judges.add(v);
+        if(!state.judges.size)state.judges=new Set(['상향','적정','하향']);
+      }else state.judges=new Set([v]);
+      judgeBox.querySelectorAll('button').forEach(x=>x.classList.toggle('selected',state.judges.has(x.dataset.judge)));
+      if(typeof markDirty==='function')markDirty('recommend');
+    },true);
+  }
+  function patchHelp(){
+    document.querySelectorAll('#tabHelp .help-card p,#tabHelp .help-card li').forEach(n=>{
+      n.innerHTML=n.innerHTML
+        .replace(/결과\./g,'결과를 출력합니다.')
+        .replace(/결과\s*$/g,'결과를 출력합니다.')
+        .replace(/간호 관련 전체 결과/g,'간호 관련 전체 결과를 출력합니다')
+        .replace(/모바일에서는 입력 중 자동 조회하지 않습니다\. 반드시 <b>검색 버튼<\/b>을 눌러야 결과가 표시됩니다\./g,'모바일에서는 입력 중 자동 조회하지 않습니다. 반드시 <b>검색 버튼</b>을 눌러야 결과를 출력합니다. 대학명만으로 검색할 때는 두 글자 이상 입력하세요.');
+    });
+    const first=document.querySelector('#tabHelp .help-card');
+    if(first&&!first.dataset.ver21){first.dataset.ver21='1';first.insertAdjacentHTML('beforeend','<p><b>예시</b>: 대학명 <b>고려</b> 입력 후 검색 → 고려대 관련 결과를 출력합니다. 대학명 한 글자만 입력하면 속도 보호를 위해 조회하지 않습니다.</p>');}
+  }
+  function init(){patchHelp();}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
 
