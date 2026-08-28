@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>라이언의 21 - 26 입시결과 검색기 모바일 ver.92</title><style>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>라이언의 21 - 26 입시결과 검색기 모바일 ver.93</title><style>
 :root{--bg:#020b1b;--bg2:#071a38;--panel:#07172e;--panel2:#0b203e;--line:#23527d;--line2:#2f79a9;--text:#eef7ff;--muted:#9eb5ce;--blue:#17aef2;--blue2:#3757f2;--cyan:#49d6ff;--yellow:#ffe66a;--green:#61e8ae;--red:#ff858f;--orange:#ff9d4d;--shadow:0 18px 45px rgba(0,0,0,.24);--radius:20px}
 *{box-sizing:border-box}html{background:#020b1b;scroll-behavior:smooth}body{margin:0;color:var(--text);font-family:Arial,"Noto Sans KR","Malgun Gothic",sans-serif;background:radial-gradient(circle at 12% 0%,rgba(22,174,242,.20),transparent 28%),radial-gradient(circle at 88% 8%,rgba(55,87,242,.18),transparent 28%),linear-gradient(135deg,#020b1b 0%,#061a35 55%,#092656 100%);min-height:100vh;overflow-x:hidden;font-size:16px;line-height:1.55}
 body.pc:before{content:"";position:fixed;inset:-20%;z-index:-1;background:radial-gradient(ellipse at 20% 40%,rgba(24,181,255,.14),transparent 42%),radial-gradient(ellipse at 74% 60%,rgba(65,81,255,.12),transparent 40%);filter:blur(40px);animation:bgDrift 22s ease-in-out infinite alternate;pointer-events:none}@keyframes bgDrift{0%{transform:translate3d(-2%,0,0) scale(1)}100%{transform:translate3d(3%,-2%,0) scale(1.06)}}
@@ -355,7 +355,7 @@ body.mobile .advanced-filters>summary{min-height:49px}
 
 </style>
 <style id="ver88-base-ui">
-/* ver.92 minor revision: content surfaces and controls only; backdrop and animation layers are unchanged. */
+/* ver.93 minor revision: content surfaces and controls only; backdrop and animation layers are unchanged. */
 :root{
   --v74-base-base-control-radius:4px;
   --v74-base-base-input-radius:7px;
@@ -427,7 +427,7 @@ body.mobile #yearSearch,body.mobile #yearCompare,body.mobile #yearMajor,body.mob
 </style>
 
 <style id="ver88-ui-revision">
-/* ver.92: navy quick-action shell. The existing cosmic backdrop and animations are intentionally preserved. */
+/* ver.93: navy quick-action shell. The existing cosmic backdrop and animations are intentionally preserved. */
 :root{
   --v74-base-navy-950:#031326;
   --v74-base-navy-900:#061a31;
@@ -3088,9 +3088,283 @@ body #quickHome .quick-action:focus-visible{
     gap:12px!important;
   }
   #simpleSearchShell .simple-control-wide,
-  #simpleAdmissionControl,
+  #simpleAdmissionControl{
+    grid-column:1/-1!important;
+  }
+  body.mobile #panel-search.results-focus.search-window-expanded #simpleSearchShell .simple-search-fields{
+    display:grid!important;
+  }
   #simpleSearchShell .simple-main-button,
   #simpleSearchShell #simpleAdvancedButton{
+    grid-column:auto!important;
+    width:100%!important;
+    min-width:0!important;
+  }
+}
+</style>
+
+
+<style id="ver93-mobile-expanded-search-and-sort-layout">
+/* 모바일 HTML을 어떤 창 폭으로 열어도 검색창 펼침 시 실제 입력 영역을 표시한다. */
+body.mobile #panel-search.results-focus.search-window-expanded #simpleSearchShell{
+  display:block!important;
+  width:auto!important;
+  height:auto!important;
+  min-height:0!important;
+  padding:16px!important;
+  border:1px solid rgba(151,215,243,.46)!important;
+  overflow:visible!important;
+}
+body.mobile #panel-search.results-focus.search-window-expanded #simpleSearchShell .simple-search-fields{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:12px!important;
+  width:100%!important;
+  min-width:0!important;
+}
+body.mobile #simpleSearchShell .simple-search-fields>*{
+  min-width:0!important;
+  max-width:100%!important;
+}
+body.mobile #simpleSearchShell .simple-control-wide,
+body.mobile #simpleSearchShell #simpleAdmissionControl{
+  grid-column:1/-1!important;
+}
+body.mobile #simpleSearchShell :is(.simple-main-button,#simpleAdvancedButton){
+  grid-column:auto!important;
+  width:100%!important;
+  min-width:0!important;
+}
+body.mobile #panel-search.results-focus.search-window-collapsed #simpleSearchShell{
+  display:none!important;
+  width:0!important;
+  height:0!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  overflow:hidden!important;
+}
+
+/* 모든 탭의 정렬 막대를 같은 3열 구조와 동일한 높이로 정돈한다. */
+body.mobile .sortbar{
+  display:grid!important;
+  grid-template-columns:max-content minmax(0,1fr) minmax(0,1fr)!important;
+  align-items:center!important;
+  gap:10px!important;
+  width:100%!important;
+  min-width:0!important;
+}
+body.mobile .sortbar .sortbar-label{
+  min-width:0!important;
+  margin:0!important;
+  white-space:nowrap!important;
+}
+body.mobile .sortbar select{
+  width:100%!important;
+  min-width:0!important;
+  max-width:none!important;
+  height:46px!important;
+  min-height:46px!important;
+  margin:0!important;
+  padding-inline:12px 34px!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+}
+
+/* 추천 기준 버튼과 추천 필터 체크 영역을 진한 남색·가운데 정렬로 통일한다. */
+body.mobile #panel-recommend #criterionButtons>.pill-btn{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  color:#eef9ff!important;
+  background:linear-gradient(135deg,rgba(7,45,79,.98),rgba(2,24,49,.99))!important;
+  border-color:rgba(105,188,229,.50)!important;
+}
+body.mobile #panel-recommend #criterionButtons>.pill-btn.active{
+  border-color:#f0d64d!important;
+  background:linear-gradient(135deg,rgba(10,58,96,.99),rgba(3,31,61,.99))!important;
+}
+body.mobile #panel-recommend .v90-rec-vertical #recTrackChecks,
+body.mobile #panel-recommend .v90-rec-vertical .v90-compact-checks{
+  justify-content:center!important;
+  margin-inline:auto!important;
+}
+body.mobile #panel-recommend .v90-rec-vertical .check-pill{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:40px!important;
+  height:40px!important;
+  color:#edf9ff!important;
+  text-align:center!important;
+  background:linear-gradient(135deg,rgba(7,45,79,.96),rgba(2,24,49,.98))!important;
+  border-color:rgba(112,190,226,.48)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 6px 16px rgba(0,11,29,.14)!important;
+}
+body.mobile #panel-recommend .v90-rec-vertical .check-pill:hover,
+body.mobile #panel-recommend .v90-rec-vertical .check-pill:has(input:focus-visible),
+body.mobile #panel-recommend .v90-rec-vertical .check-pill:has(input:checked){
+  border-color:rgba(91,216,255,.82)!important;
+  background:linear-gradient(135deg,rgba(11,65,103,.98),rgba(3,34,65,.99))!important;
+}
+body.mobile #panel-recommend .v90-rec-vertical :is(.sub-label,.v90-rec-check-row>.sub-label){
+  text-align:center!important;
+}
+body.mobile #panel-recommend .v90-rec-exclusions .v90-compact-checks{
+  grid-template-columns:repeat(2,minmax(150px,210px))!important;
+}
+body.mobile #panel-recommend .v90-rec-exact .v90-compact-checks{
+  grid-template-columns:minmax(150px,210px)!important;
+}
+
+/* 제목 바로 아래의 두 이동 링크를 작고 동일한 크기로 정돈한다. */
+body.mobile header .header-nav-stack{
+  order:2!important;
+  position:static!important;
+  inset:auto!important;
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:6px!important;
+  width:min(100%,clamp(280px,82vw,330px))!important;
+  margin:7px auto 2px!important;
+  align-items:stretch!important;
+}
+html body.mobile header .header-nav-stack>a.return-btn,
+html body.mobile header .header-nav-stack>a.switch-btn{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:clamp(34px,9.2vw,38px)!important;
+  height:clamp(34px,9.2vw,38px)!important;
+  margin:0!important;
+  padding:5px 6px!important;
+  border-radius:8px!important;
+  font-size:clamp(9.6px,2.7vw,11.5px)!important;
+  font-weight:850!important;
+  line-height:1.15!important;
+  text-align:center!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+body.mobile header .title-row{order:1!important}
+body.mobile header .subtitle{order:3!important}
+body.mobile header .v90-data-notice{order:4!important}
+
+/* 모바일 전반에서 버튼 글자를 글자 단위로 쪼개지 않고 두 줄 안에서 안정적으로 배치한다. */
+html body.mobile :is(button,a,summary){
+  min-width:0;
+  max-width:100%;
+  box-sizing:border-box;
+  word-break:keep-all;
+  overflow-wrap:normal;
+  hyphens:none;
+}
+html body.mobile :is(input,select,textarea){min-width:0;max-width:100%;box-sizing:border-box}
+html body.mobile :is(.quick-action strong,.nav-popup-button>span,.feature-title){
+  word-break:keep-all;
+  overflow-wrap:normal;
+  text-wrap:balance;
+}
+html body.mobile #backToTop.back-to-top{
+  position:fixed!important;
+  left:auto!important;
+  right:max(12px,env(safe-area-inset-right))!important;
+  bottom:max(14px,env(safe-area-inset-bottom))!important;
+  z-index:110!important;
+}
+
+/* 전형명도 직접 입력·자동완성·목록 선택을 함께 지원한다. */
+body.mobile #simpleAdmissionControl{position:relative!important;min-width:0!important}
+body.mobile #simpleAdmission{display:none!important}
+body.mobile #simpleAdmissionInput{
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+}
+body.mobile #simpleAdmissionInput:disabled{
+  color:rgba(207,230,242,.64)!important;
+  -webkit-text-fill-color:rgba(207,230,242,.64)!important;
+  cursor:not-allowed!important;
+  opacity:.78!important;
+}
+body.mobile .v93-mobile-autocomplete{
+  position:absolute!important;
+  z-index:160!important;
+  top:calc(100% + 7px)!important;
+  left:0!important;
+  right:0!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  max-height:222px!important;
+  padding:6px!important;
+  border:1px solid rgba(103,213,250,.66)!important;
+  border-radius:14px!important;
+  background:linear-gradient(145deg,rgba(15,71,108,.98),rgba(3,30,58,.99))!important;
+  box-shadow:0 18px 42px rgba(0,10,28,.46),inset 0 1px 0 rgba(255,255,255,.12)!important;
+  backdrop-filter:blur(20px) saturate(136%)!important;
+  -webkit-backdrop-filter:blur(20px) saturate(136%)!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain!important;
+  scrollbar-width:thin!important;
+  scrollbar-color:rgba(103,211,246,.72) rgba(3,28,55,.72)!important;
+}
+body.mobile .v93-mobile-autocomplete[hidden]{display:none!important}
+body.mobile .v93-mobile-autocomplete button{
+  display:block!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:42px!important;
+  height:42px!important;
+  padding:9px 11px!important;
+  border:0!important;
+  border-radius:9px!important;
+  color:#eaf8ff!important;
+  background:transparent!important;
+  text-align:left!important;
+  font-size:.9rem!important;
+  font-weight:820!important;
+  line-height:1.2!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+body.mobile .v93-mobile-autocomplete button+button{border-top:1px solid rgba(154,220,245,.08)!important}
+body.mobile .v93-mobile-autocomplete button:is(:hover,:focus-visible,[aria-selected="true"]){
+  color:#fff!important;
+  background:linear-gradient(90deg,rgba(48,177,226,.56),rgba(25,104,170,.40))!important;
+  outline:0!important;
+}
+body.mobile .v93-mobile-autocomplete::-webkit-scrollbar{width:10px!important}
+body.mobile .v93-mobile-autocomplete::-webkit-scrollbar-track{border-radius:999px!important;background:rgba(2,24,49,.84)!important}
+body.mobile .v93-mobile-autocomplete::-webkit-scrollbar-thumb{
+  min-height:34px!important;
+  border:2px solid rgba(2,24,49,.84)!important;
+  border-radius:999px!important;
+  background:linear-gradient(180deg,#39c6ef,#1675af)!important;
+}
+@media(max-width:430px){
+  body.mobile #panel-recommend .v90-rec-exclusions .v90-compact-checks{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    width:100%!important;
+  }
+  body.mobile #panel-recommend .v90-rec-exact .v90-compact-checks{
+    grid-template-columns:minmax(0,1fr)!important;
+    width:100%!important;
+  }
+  body.mobile .sortbar{
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  }
+  body.mobile .sortbar .sortbar-label{
     grid-column:1/-1!important;
   }
 }
@@ -3099,8 +3373,8 @@ body #quickHome .quick-action:focus-visible{
 </head><body class="mobile quick-home-mode">
 <div class="cosmic-backdrop" aria-hidden="true"><span class="cosmic-nebula"></span><span class="cosmic-aurora a"></span><span class="cosmic-aurora b"></span><span class="cosmic-stars far"></span><span class="cosmic-stars near"></span><span class="cosmic-star-glow"></span><i class="cosmic-meteor m1"></i><i class="cosmic-meteor m2"></i><i class="cosmic-meteor m3"></i><i class="cosmic-meteor m4"></i></div>
 <header>
-  <div class="header-nav-stack"><a class="return-btn" href="https://seiryu1318.github.io/Ergosphere_Ryan/" aria-label="라이언의 대입포털로 돌아가기">라이언의 대입포털로 돌아가기 ↗</a><a class="switch-btn" href="https://seiryu1318.github.io/admission_Ryan/">PC 버전 ↗</a></div>
-  <div class="title-row"><img class="brand-mascot" src="data:image/jpeg;base64,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" alt="라이언 캐릭터" width="96" height="96" decoding="async" fetchpriority="high"><h1>라이언의 21 - 26 입시결과 검색기 <span class="ver">ver.92</span></h1></div>
+  <div class="header-nav-stack"><a class="return-btn" href="https://seiryu1318.github.io/Ergosphere_Ryan/" aria-label="라이언의 대입포털로 돌아가기">대입포털로 돌아가기</a><a class="switch-btn" href="https://seiryu1318.github.io/admission_Ryan/">PC 버전</a></div>
+  <div class="title-row"><img class="brand-mascot" src="data:image/jpeg;base64,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" alt="라이언 캐릭터" width="96" height="96" decoding="async" fetchpriority="high"><h1>라이언의 21 - 26 입시결과 검색기 <span class="ver">ver.93</span></h1></div>
   <p class="subtitle">학생부종합전형은 정성평가이므로, 참고만 하시기 바랍니다.</p><p class="v90-data-notice">본 자료는 일부 정보 누락 가능성도 있습니다. 공식 자료와 최종 확인하십시오.</p>
   
 </header>
@@ -3187,23 +3461,23 @@ body #quickHome .quick-action:focus-visible{
         <h2 class="section-title">입결 검색</h2>
         <div class="mode-tabs"><button class="pill-btn active" data-mode="keyword">A. 키워드 검색</button><button class="pill-btn" data-mode="select">B. 대학별 선택 검색</button></div>
         <div class="checks"><label class="check-pill"><input id="qExcludeRegional" type="checkbox">지역인재 제외</label><label class="check-pill"><input id="qExcludeWomen" type="checkbox">여대 제외</label><label class="check-pill"><input id="qExact" type="checkbox">정확히 일치</label></div>
-        <div class="field"><label>지역 구분 <span class="optional">선택사항</span></label><select id="qRegion"><option value="">전체 지역 (목록에서 선택)</option></select></div>
+        <div class="field"><label>지역 구분</label><select id="qRegion"><option value="">전체 지역 (목록에서 선택)</option></select></div>
         <div id="keywordBox" class="subbox">
           <div class="guide">지역, 대학, 전형, 계열, 학과 중 하나 이상 입력한 뒤 <span class="hl">키워드 검색</span>을 누르세요.</div>
           <div class="field"><label><span class="step">1</span>대학명 입력</label><input id="qUniv" placeholder="예: 고려대, 동국대, 연세대"></div>
           <div class="field"><div class="sub-label">전형 구분</div><div class="type-row" id="typeSearch"></div></div>
-          <div class="field"><label><span class="step">2</span>전형명 <span class="optional">선택사항</span></label><select id="qAdmission"><option value="">전체 전형명 (목록에서 선택)</option></select></div>
-          <div class="field"><label><span class="step">3</span>계열 구분 <span class="optional">선택사항</span></label><div class="checks" id="qTracks"></div></div>
-          <div class="field"><label><span class="step">4</span>세부 계열 <span class="optional">선택사항</span></label><select id="qField"><option value="">전체 세부 계열 (목록에서 선택)</option></select></div>
-          <div class="field"><label><span class="step">5</span>학과명 입력 <span class="optional">선택사항</span></label><input id="qDept" placeholder="예: 간호, 컴퓨터, 경영"></div>
+          <div class="field"><label><span class="step">2</span>전형명</label><select id="qAdmission"><option value="">전체 전형명 (목록에서 선택)</option></select></div>
+          <div class="field"><label><span class="step">3</span>계열 구분</label><div class="checks" id="qTracks"></div></div>
+          <div class="field"><label><span class="step">4</span>세부 계열</label><select id="qField"><option value="">전체 세부 계열 (목록에서 선택)</option></select></div>
+          <div class="field"><label><span class="step">5</span>학과명 입력</label><input id="qDept" placeholder="예: 간호, 컴퓨터, 경영"></div>
           <div class="btn-row"><button class="primary" id="searchBtn">키워드 검색</button><button class="secondary" id="searchClear">초기화</button></div>
         </div>
         <div id="selectBox" class="subbox" style="display:none">
           <div class="guide">대학명을 입력한 뒤 드롭다운을 차례로 선택하고 <span class="hl">선택 검색</span>을 누르세요.</div>
           <div class="field"><label><span class="step">1</span>대학명 입력</label><input id="sUniv" placeholder="예: 고려대"></div>
-          <div class="field"><label><span class="step">2</span>전형성격 <span class="optional">선택사항</span></label><select id="sType"><option value="">전체 전형성격 (목록에서 선택)</option></select></div>
-          <div class="field"><label><span class="step">3</span>전형명 <span class="optional">선택사항</span></label><select id="sAdmission"><option value="">전체 전형명 (목록에서 선택)</option></select></div>
-          <div class="field"><label><span class="step">4</span>모집단위 <span class="optional">선택사항</span></label><select id="sDept"><option value="">전체 모집단위 (목록에서 선택)</option></select></div>
+          <div class="field"><label><span class="step">2</span>전형성격</label><select id="sType"><option value="">전체 전형성격 (목록에서 선택)</option></select></div>
+          <div class="field"><label><span class="step">3</span>전형명</label><select id="sAdmission"><option value="">전체 전형명 (목록에서 선택)</option></select></div>
+          <div class="field"><label><span class="step">4</span>모집단위</label><select id="sDept"><option value="">전체 모집단위 (목록에서 선택)</option></select></div>
           <div class="btn-row"><button class="primary" id="selectSearchBtn">선택 검색</button><button class="secondary" id="selectClear">초기화</button></div>
         </div>
       </div>
@@ -3224,9 +3498,9 @@ body #quickHome .quick-action:focus-visible{
       <div><div class="year-row" id="yearCompare"></div><p class="status">전체, 단년, 복수 연도를 선택할 수 있습니다.</p></div>
       <div>
         <div class="field"><div class="sub-label">전형 구분</div><div class="type-row" id="typeCompare"></div></div>
-        <div class="field"><label>계열 구분 <span class="optional">선택사항</span></label><div class="checks" id="cmpTracks"></div></div>
+        <div class="field"><label>계열 구분</label><div class="checks" id="cmpTracks"></div></div>
         <div class="checks"><label class="check-pill"><input id="cmpExact" type="checkbox">정확히 일치</label><label class="check-pill"><input id="cmpExcludeWomen" type="checkbox">여대 제외</label></div>
-        <div class="field"><label><span class="step">1</span>학과명 입력 <span class="optional">선택사항</span></label><input id="cmpDept" placeholder="예: 간호, 경영, 컴퓨터"></div>
+        <div class="field"><label><span class="step">1</span>학과명 입력</label><input id="cmpDept" placeholder="예: 간호, 경영, 컴퓨터"></div>
         <div class="kpi-grid"><div class="field"><label><span class="step">2</span>대학 1</label><input id="cmpU1" placeholder="예: 서울대"></div><div class="field"><label><span class="step">3</span>대학 2</label><input id="cmpU2" placeholder="예: 연세대"></div><div class="field"><label><span class="step">4</span>대학 3</label><input id="cmpU3" placeholder="예: 고려대"></div></div>
         <div class="btn-row"><button id="compareBtn" class="primary">비교하기</button><button id="compareClear" class="secondary">초기화</button></div>
       </div>
@@ -3242,13 +3516,13 @@ body #quickHome .quick-action:focus-visible{
       <div><div class="year-row" id="yearMajor"></div><p class="status">최대 3개의 유사 모집단위 키워드를 비교합니다.</p></div>
       <div>
         <div class="field"><div class="sub-label">전형 구분</div><div class="type-row" id="typeMajor"></div></div>
-        <div class="field"><label>계열 구분 <span class="optional">선택사항</span></label><div class="checks" id="majorTracks"></div></div>
-        <div class="field"><label>지역 구분 <span class="optional">선택사항</span></label><select id="majorRegion"><option value="">전체 지역 (목록에서 선택)</option></select></div>
-        <div class="field-group-label">대학명 필터 <span class="optional">선택사항</span></div>
+        <div class="field"><label>계열 구분</label><div class="checks" id="majorTracks"></div></div>
+        <div class="field"><label>지역 구분</label><select id="majorRegion"><option value="">전체 지역 (목록에서 선택)</option></select></div>
+        <div class="field-group-label">대학명 필터</div>
         <div class="kpi-grid uniform-inputs"><div class="field"><label>대학명 1</label><input id="majorU1" placeholder="예: 성균관대"></div><div class="field"><label>대학명 2</label><input id="majorU2" placeholder="예: 서울시립대"></div><div class="field"><label>대학명 3</label><input id="majorU3" placeholder="예: 건국대"></div></div>
         <div class="checks"><label class="check-pill"><input id="majorExact" type="checkbox">정확히 일치</label><label class="check-pill"><input id="majorExcludeWomen" type="checkbox">여대 제외</label></div>
         <div class="field-group-label">학과명 키워드</div>
-        <div class="kpi-grid uniform-inputs"><div class="field"><label><span class="step">1</span>학과명 입력 1</label><input id="major1" placeholder="예: 융합환경"></div><div class="field"><label><span class="step">2</span>학과명 입력 2 <span class="optional">선택사항</span></label><input id="major2" placeholder="예: 환경공학"></div><div class="field"><label><span class="step">3</span>학과명 입력 3 <span class="optional">선택사항</span></label><input id="major3" placeholder="예: 환경과학"></div></div>
+        <div class="kpi-grid uniform-inputs"><div class="field"><label><span class="step">1</span>학과명 입력 1</label><input id="major1" placeholder="예: 융합환경"></div><div class="field"><label><span class="step">2</span>학과명 입력 2</label><input id="major2" placeholder="예: 환경공학"></div><div class="field"><label><span class="step">3</span>학과명 입력 3</label><input id="major3" placeholder="예: 환경과학"></div></div>
         <div class="btn-row"><button id="majorBtn" class="primary">유사 모집단위 비교</button><button id="majorClear" class="secondary">초기화</button></div>
       </div>
     </div>
@@ -3261,12 +3535,12 @@ body #quickHome .quick-action:focus-visible{
     <aside class="panel">
       <h2 class="section-title">조회 조건</h2><div class="year-row" id="yearRegion"></div>
       <div class="field"><label><span class="step">1</span>지역 선택 1</label><select id="region1"><option value="">전체 지역 (목록에서 선택)</option></select></div>
-      <div class="field"><label><span class="step">2</span>지역 선택 2 <span class="optional">선택사항</span></label><select id="region2"><option value="">비교 지역 없음 (목록에서 선택)</option></select></div>
+      <div class="field"><label><span class="step">2</span>지역 선택 2</label><select id="region2"><option value="">비교 지역 없음 (목록에서 선택)</option></select></div>
       <div class="field"><label>등급대</label><select id="regionBand"><option value="">전체 등급대</option><option>1등급대</option><option>2등급대</option><option>3등급대</option><option>4등급대</option><option>5등급대</option><option>6등급대 이상</option><option>등급 미공개</option></select></div>
       <div class="field"><div class="sub-label">전형 구분</div><div class="type-row" id="typeRegion"></div></div>
-      <div class="field"><label>계열 구분 <span class="optional">선택사항</span></label><div class="checks" id="regionTracks"></div></div>
-      <div class="field"><label>세부 계열 <span class="optional">선택사항</span></label><select id="regionField"><option value="">전체 세부 계열 (목록에서 선택)</option></select></div>
-      <div class="field"><label>학과명 입력 <span class="optional">선택사항</span></label><input id="regionDept" placeholder="예: 간호, 컴퓨터, 경영"></div>
+      <div class="field"><label>계열 구분</label><div class="checks" id="regionTracks"></div></div>
+      <div class="field"><label>세부 계열</label><select id="regionField"><option value="">전체 세부 계열 (목록에서 선택)</option></select></div>
+      <div class="field"><label>학과명 입력</label><input id="regionDept" placeholder="예: 간호, 컴퓨터, 경영"></div>
       <div class="checks"><label class="check-pill"><input id="regionExact" type="checkbox">정확히 일치</label><label class="check-pill"><input id="regionExcludeRegional" type="checkbox">지역인재 제외</label><label class="check-pill"><input id="regionExcludeWomen" type="checkbox">여대 제외</label></div>
       <div class="btn-row"><button id="regionBtn" class="primary">조회</button><button id="regionClear" class="secondary">초기화</button></div>
     </aside>
@@ -3280,13 +3554,13 @@ body #quickHome .quick-action:focus-visible{
     <aside id="recommendFilterArea" class="aside-stack">
       <div class="panel">
         <h2 class="section-title">추천 조건</h2>
-        <div class="guide">전 교과 등급과 조건을 입력한 뒤 <span class="hl">추천 보기</span>를 누르세요.</div>
+        
         <div class="field"><label><span class="step">1</span>전 교과 등급</label><input id="recGrade" type="number" min="1" max="9" step="0.01" inputmode="decimal" placeholder="예: 2.75"></div>
         <div class="field"><div class="sub-label"><span class="step">2</span>추천 전형</div><div class="type-row" id="typeRecommend"></div></div>
-        <div class="field"><label><span class="step">3</span>지역 구분 <span class="optional">선택사항</span></label><select id="recRegion"><option value="">전체 지역 (목록에서 선택)</option></select></div>
-        <div class="field"><label><span class="step">4</span>계열 구분 <span class="optional">선택사항</span></label><div class="checks" id="recTrackChecks"></div></div>
-        <div class="field"><label><span class="step">5</span>세부 계열 <span class="optional">선택사항</span></label><select id="recField"><option value="">전체 세부 계열 (목록에서 선택)</option></select></div>
-        <div class="field"><label><span class="step">6</span>학과명 입력 <span class="optional">선택사항</span></label><input id="recDept" placeholder="예: 간호, 미디어, 컴퓨터"></div>
+        <div class="field"><label><span class="step">3</span>지역 구분</label><select id="recRegion"><option value="">전체 지역 (목록에서 선택)</option></select></div>
+        <div class="field"><label><span class="step">4</span>계열 구분</label><div class="checks" id="recTrackChecks"></div></div>
+        <div class="field"><label><span class="step">5</span>세부 계열</label><select id="recField"><option value="">전체 세부 계열 (목록에서 선택)</option></select></div>
+        <div class="field"><label><span class="step">6</span>학과명 입력</label><input id="recDept" placeholder="예: 간호, 미디어, 컴퓨터"></div>
         <div class="checks"><label class="check-pill"><input id="recExcludeRegional" type="checkbox">지역인재 제외</label><label class="check-pill"><input id="recExcludeWomen" type="checkbox">여대 제외</label><label class="check-pill"><input id="recExact" type="checkbox">정확히 일치</label></div>
         <div class="btn-row"><button id="recommendBtn" class="primary">추천 보기</button><button id="recClear" class="secondary">초기화</button></div>
       </div>
@@ -3315,17 +3589,17 @@ body #quickHome .quick-action:focus-visible{
     <aside id="schoolFilterPanel" class="panel">
       <h2 class="section-title">검색 조건</h2><div class="guide">조건을 입력한 뒤 <span class="hl">본교 입결 검색</span>을 누르세요.</div>
       <div class="field"><div class="sub-label">재학 연도</div><div class="year-row" id="schoolYears"></div></div>
-      <div class="field"><label>대학군 및 권역 <span class="optional">선택사항</span></label><select id="schoolGroup"></select></div>
-      <div class="field"><label>대학명 입력 <span class="optional">선택사항</span></label><input id="schoolUniv" placeholder="예: 고려대, 가천대"></div>
+      <div class="field"><label>대학군 및 권역</label><select id="schoolGroup"></select></div>
+      <div class="field"><label>대학명 입력</label><input id="schoolUniv" placeholder="예: 고려대, 가천대"></div>
       <div class="field"><div class="sub-label">전형 유형</div><div class="type-row" id="schoolTypes"></div></div>
-      <div class="field"><label>전형명 <span class="optional">선택사항</span></label><select id="schoolAdmission"></select></div>
-      <div class="field"><label>계열 구분 <span class="optional">선택사항</span></label><div class="checks" id="schoolTracks"></div></div>
-      <div class="field"><label>모집단위 입력 <span class="optional">선택사항</span></label><input id="schoolDept" placeholder="예: 간호, 컴퓨터, 경영"></div>
+      <div class="field"><label>전형명</label><select id="schoolAdmission"></select></div>
+      <div class="field"><label>계열 구분</label><div class="checks" id="schoolTracks"></div></div>
+      <div class="field"><label>모집단위 입력</label><input id="schoolDept" placeholder="예: 간호, 컴퓨터, 경영"></div>
       <div class="field"><label>최종 결과</label><select id="schoolFinal"><option value="">전체 최종 결과</option><option>합격</option><option>불합격</option><option value="미기재">미기재</option></select></div>
       <div class="field"><label>1단계 결과</label><select id="schoolStage1"><option value="">전체 1단계 결과</option><option>합격</option><option>불합격</option><option value="미기재">미기재</option></select></div>
       <div class="field"><label>수능 최저 및 미응시</label><select id="schoolMinStatus"><option value="">전체</option><option value="최저미충족">최저미충족</option><option value="미응시">미응시</option><option value="미기재">미기재 또는 해당 없음</option></select></div>
       <div class="field"><label>성적 기준</label><select id="schoolMetric"></select></div>
-      <div class="kpi-grid"><div class="field"><label>등급 범위 시작 <span class="optional">선택사항</span></label><input id="schoolMin" type="number" step="0.01" placeholder="예: 2.00"></div><div class="field"><label>등급 범위 끝 <span class="optional">선택사항</span></label><input id="schoolMax" type="number" step="0.01" placeholder="예: 3.00"></div></div>
+      <div class="kpi-grid"><div class="field"><label>등급 범위 시작</label><input id="schoolMin" type="number" step="0.01" placeholder="예: 2.00"></div><div class="field"><label>등급 범위 끝</label><input id="schoolMax" type="number" step="0.01" placeholder="예: 3.00"></div></div>
       <div class="checks"><label class="check-pill"><input id="schoolExact" type="checkbox">정확히 일치</label><label class="check-pill"><input id="schoolExcludeMissing" type="checkbox">최종 결과 미기재 제외</label></div>
       <div class="btn-row"><button id="schoolBtn" class="primary">본교 입결 검색</button><button id="schoolClear" class="secondary">초기화</button></div>
     </aside>
@@ -3489,7 +3763,7 @@ function initPageUtilities(){const nav=$('mainTabs'),btn=$('backToTop');const se
 function initSchoolMissingFilter(){const exclude=$('schoolExcludeMissing'),final=$('schoolFinal');exclude.addEventListener('change',()=>{if(exclude.checked&&final.value==='미기재')final.value='';if(state.ran.school)runSchool()});final.addEventListener('change',()=>{if(final.value==='미기재')exclude.checked=false});$('schoolClear').addEventListener('click',()=>{exclude.checked=false})}
 function initSearchAutoRefresh(){const ids=['qRegion','qAdmission','qField','qDept','qExact','qExcludeWomen','qExcludeRegional','sType','sAdmission','sDept'];ids.forEach(id=>{const el=$(id),event=el.tagName==='INPUT'&&el.type==='text'?'input':'change';el.addEventListener(event,()=>{if(!MOBILE&&state.ran.search)scheduleRun('search')})})}
 function initEnterActions(){if(MOBILE||document.documentElement.dataset.enterBound)return;document.documentElement.dataset.enterBound='1';const actions=new Map([['qUniv',{button:'searchBtn',scope:'search'}],['qDept',{button:'searchBtn',scope:'search'}],['sUniv',{button:'selectSearchBtn',scope:'search'}],['cmpDept',{button:'compareBtn',scope:'compare'}],['cmpU1',{button:'compareBtn',scope:'compare'}],['cmpU2',{button:'compareBtn',scope:'compare'}],['cmpU3',{button:'compareBtn',scope:'compare'}],['majorU1',{button:'majorBtn',scope:'major'}],['majorU2',{button:'majorBtn',scope:'major'}],['majorU3',{button:'majorBtn',scope:'major'}],['major1',{button:'majorBtn',scope:'major'}],['major2',{button:'majorBtn',scope:'major'}],['major3',{button:'majorBtn',scope:'major'}],['recGrade',{button:'recommendBtn',scope:'recommend'}],['recDept',{button:'recommendBtn',scope:'recommend'}],['regionDept',{button:'regionBtn',scope:'region'}],['schoolUniv',{button:'schoolBtn',scope:'school'}],['schoolDept',{button:'schoolBtn',scope:'school'}],['schoolMin',{button:'schoolBtn',scope:'school'}],['schoolMax',{button:'schoolBtn',scope:'school'}]]);document.addEventListener('keydown',e=>{if(e.key!=='Enter'||e.isComposing||e.keyCode===229||e.repeat||e.defaultPrevented||e.ctrlKey||e.altKey||e.metaKey)return;const input=e.target;if(!(input instanceof HTMLInputElement)||!['text','search','number'].includes(input.type)||!input.closest('.tab-panel.active')||input.disabled||input.readOnly)return;const action=actions.get(input.id);if(!action)return;const button=$(action.button);if(!button||button.disabled)return;e.preventDefault();clearTimeout(state['_timer_'+action.scope]);state['_timer_'+action.scope]=null;button.click()})}
-function wrapAdvancedFilters(nodes,title){nodes=[...new Set(nodes.filter(Boolean))].filter(node=>!node.closest('.advanced-filters'));if(!nodes.length)return;const anchor=nodes[0],details=document.createElement('details'),summary=document.createElement('summary'),body=document.createElement('div');details.className='advanced-filters';summary.innerHTML='<span>'+title+'</span><span class="advanced-filter-state">선택사항</span>';body.className='advanced-filter-body';anchor.parentNode.insertBefore(details,anchor);details.append(summary,body);nodes.forEach(node=>body.append(node));const sync=()=>{const inputs=[...details.querySelectorAll('input,select')],buttons=[...details.querySelectorAll('[data-type-scope].active:not([data-type="all"])')],count=inputs.filter(el=>el.type==='checkbox'?el.checked:Boolean(String(el.value||'').trim())).length+buttons.length;details.classList.toggle('has-value',count>0);const label=details.querySelector('.advanced-filter-state');if(label)label.textContent=count?count+'개 적용':'선택사항'};details._syncAdvanced=sync;sync()}
+function wrapAdvancedFilters(nodes,title){nodes=[...new Set(nodes.filter(Boolean))].filter(node=>!node.closest('.advanced-filters'));if(!nodes.length)return;const anchor=nodes[0],details=document.createElement('details'),summary=document.createElement('summary'),body=document.createElement('div');details.className='advanced-filters';summary.innerHTML='<span>'+title+'</span><span class="advanced-filter-state"></span>';body.className='advanced-filter-body';anchor.parentNode.insertBefore(details,anchor);details.append(summary,body);nodes.forEach(node=>body.append(node));const sync=()=>{const inputs=[...details.querySelectorAll('input,select')],buttons=[...details.querySelectorAll('[data-type-scope].active:not([data-type="all"])')],count=inputs.filter(el=>el.type==='checkbox'?el.checked:Boolean(String(el.value||'').trim())).length+buttons.length;details.classList.toggle('has-value',count>0);const label=details.querySelector('.advanced-filter-state');if(label)label.textContent=count?count+'개 적용':''};details._syncAdvanced=sync;sync()}
 function initCompactLayout(){const field=id=>$(id)?.closest('.field'),checks=id=>$(id)?.closest('.checks'),group=id=>$(id)?.closest('.kpi-grid');const rails=['#panel-search .aside-stack','#panel-compare>.panel','#panel-major>.panel','#panel-region aside.panel','#panel-recommend .aside-stack','#panel-school aside.panel'];rails.forEach(selector=>document.querySelector(selector)?.classList.add('condition-rail'));wrapAdvancedFilters([field('qRegion'),checks('qExact')],'검색 범위 및 제외 조건');wrapAdvancedFilters([field('qAdmission'),field('qTracks'),field('qField')],'전형 및 계열 세부 필터');wrapAdvancedFilters([field('typeCompare'),field('cmpTracks'),checks('cmpExact')],'비교 세부 필터');wrapAdvancedFilters([field('typeMajor'),field('majorTracks'),field('majorRegion'),checks('majorExact')],'대학 및 계열 세부 필터');wrapAdvancedFilters([field('regionBand'),field('typeRegion'),field('regionTracks'),field('regionField'),field('regionDept'),checks('regionExact')],'등급, 전형, 학과 세부 필터');wrapAdvancedFilters([field('recRegion'),field('recTrackChecks'),field('recField'),field('recDept'),checks('recExact')],'세부 필터(계열 등)');wrapAdvancedFilters([field('schoolGroup'),field('schoolAdmission'),field('schoolTracks'),field('schoolFinal'),field('schoolStage1'),field('schoolMinStatus'),group('schoolMin'),checks('schoolExact')],'본교 결과 세부 필터');const sync=e=>{const details=e.target.closest?.('.advanced-filters');if(details?._syncAdvanced)queueMicrotask(()=>details._syncAdvanced())};document.addEventListener('input',sync,{passive:true});document.addEventListener('change',sync);document.addEventListener('click',sync)}
 
 
@@ -4230,8 +4504,8 @@ document.addEventListener('click',event=>{
     scheduled=false;
     const nav=dock.getBoundingClientRect();
     const navOnRight=nav.left+nav.width/2>=window.innerWidth/2;
-    back.style.setProperty('left',navOnRight?'12px':'auto','important');
-    back.style.setProperty('right',navOnRight?'auto':'12px','important');
+    back.style.setProperty('left','auto','important');
+    back.style.setProperty('right','12px','important');
   };
   const schedule=()=>{
     if(scheduled)return;
@@ -4459,18 +4733,18 @@ document.addEventListener('click',event=>{
   const refreshLinkedOptions=()=>{
     const rows=eligibleRows();
     const universities=[...new Set(rows.map(row=>row.univ).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ko'));
-    univList.replaceChildren(...universities.map(value=>{
+    const typed=univInput.value.trim();
+    const normalized=normalizeName(typed);
+    const suggestedUniversities=typed.length>=3?universities.filter(name=>normalizeName(name).includes(normalized)):[];
+    univList.replaceChildren(...suggestedUniversities.map(value=>{
       const option=document.createElement('option');
       option.value=value;
       return option;
     }));
-
-    const typed=univInput.value.trim();
-    const normalized=normalizeName(typed);
     const exactNames=universities.filter(name=>normalizeName(name)===normalized);
-    const chosenNames=exactNames.length?new Set(exactNames):new Set(
-      typed.length>=2?universities.filter(name=>normalizeName(name).includes(normalized)):[]
-    );
+    const chosenNames=typed.length>=3?(exactNames.length?new Set(exactNames):new Set(
+      universities.filter(name=>normalizeName(name).includes(normalized))
+    )):new Set();
     const previous=admissionSelect.value;
     const admissions=[...new Set(rows
       .filter(row=>chosenNames.has(row.univ))
@@ -4481,8 +4755,16 @@ document.addEventListener('click',event=>{
 
   yearSelect.addEventListener('change',refreshLinkedOptions);
   typeSelect.addEventListener('change',refreshLinkedOptions);
-  univInput.addEventListener('input',refreshLinkedOptions);
-  univInput.addEventListener('change',refreshLinkedOptions);
+  let universitySuggestionTimer=0;
+  const clearUniversitySuggestions=()=>{univList.replaceChildren();setAdmissionOptions([])};
+  const refreshUniversityAfterThreshold=immediate=>{
+    clearTimeout(universitySuggestionTimer);
+    if(univInput.value.trim().length<3){clearUniversitySuggestions();return}
+    if(immediate){refreshLinkedOptions();return}
+    universitySuggestionTimer=setTimeout(refreshLinkedOptions,70);
+  };
+  univInput.addEventListener('input',()=>refreshUniversityAfterThreshold(false));
+  univInput.addEventListener('change',()=>refreshUniversityAfterThreshold(true));
   document.querySelectorAll('#searchClear,#selectClear').forEach(button=>button.addEventListener('click',()=>requestAnimationFrame(refreshLinkedOptions)));
 
   const originalSearchRows=searchRows;
@@ -4499,6 +4781,150 @@ document.addEventListener('click',event=>{
   };
 
   refreshLinkedOptions();
+})();
+</script>
+
+
+<script id="ver93-mobile-header-links-runtime">
+(()=>{
+  const header=document.querySelector('body.mobile header');
+  const title=header?.querySelector('.title-row');
+  const nav=header?.querySelector('.header-nav-stack');
+  if(!header||!title||!nav)return;
+  const portal=nav.querySelector('.return-btn');
+  const pc=nav.querySelector('.switch-btn');
+  if(portal){portal.textContent='라이언의 대입포털로 돌아가기';portal.setAttribute('aria-label','라이언의 대입포털로 돌아가기')}
+  if(pc){pc.textContent='PC 버전';pc.href='https://seiryu1318.github.io/admission_Ryan/';pc.setAttribute('aria-label','PC 버전')}
+  title.after(nav);
+
+  const admissionSelect=document.getElementById('simpleAdmission');
+  const admissionControl=admissionSelect?.closest('.simple-control');
+  const deptInput=document.getElementById('simpleDept');
+  if(!admissionSelect||!admissionControl||!deptInput)return;
+
+  admissionSelect.tabIndex=-1;
+  admissionSelect.setAttribute('aria-hidden','true');
+  const admissionInput=document.createElement('input');
+  admissionInput.id='simpleAdmissionInput';
+  admissionInput.type='search';
+  admissionInput.autocomplete='off';
+  admissionInput.placeholder='대학명을 선택하면 전형명이 표시됩니다';
+  admissionInput.setAttribute('role','combobox');
+  admissionInput.setAttribute('aria-autocomplete','list');
+  admissionInput.setAttribute('aria-expanded','false');
+  admissionInput.setAttribute('aria-label','전형명');
+  admissionSelect.after(admissionInput);
+
+  const popup=document.createElement('div');
+  popup.id='simpleAdmissionAutocomplete';
+  popup.className='v93-mobile-autocomplete';
+  popup.setAttribute('role','listbox');
+  popup.setAttribute('aria-label','전형명 자동완성');
+  popup.hidden=true;
+  admissionControl.append(popup);
+  admissionInput.setAttribute('aria-controls',popup.id);
+
+  const normalize=value=>String(value||'').normalize('NFKC').replace(/\s+/g,'').toLocaleLowerCase('ko');
+  let values=[];
+  let activeIndex=-1;
+  const close=()=>{
+    popup.hidden=true;
+    admissionInput.setAttribute('aria-expanded','false');
+    admissionInput.removeAttribute('aria-activedescendant');
+    activeIndex=-1;
+  };
+  const syncExact=()=>{
+    const typed=admissionInput.value.trim();
+    admissionSelect.value=values.find(value=>normalize(value)===normalize(typed))||'';
+  };
+  const choose=value=>{
+    admissionInput.value=value;
+    admissionSelect.value=value;
+    admissionSelect.dispatchEvent(new Event('change',{bubbles:true}));
+    admissionInput.dispatchEvent(new Event('change',{bubbles:true}));
+    close();
+    deptInput.focus();
+  };
+  const render=()=>{
+    const query=normalize(admissionInput.value);
+    if(query.length<3){close();popup.replaceChildren();return []}
+    const matches=(query?values.filter(value=>normalize(value).includes(query)):values).slice(0,100);
+    popup.replaceChildren(...matches.map((value,index)=>{
+      const button=document.createElement('button');
+      button.type='button';
+      button.id=`${popup.id}-option-${index}`;
+      button.setAttribute('role','option');
+      button.setAttribute('aria-selected',String(index===activeIndex));
+      button.title=value;
+      button.textContent=value;
+      button.addEventListener('pointerdown',event=>event.preventDefault());
+      button.addEventListener('click',()=>choose(value));
+      return button;
+    }));
+    popup.hidden=!matches.length;
+    admissionInput.setAttribute('aria-expanded',String(matches.length>0));
+    if(!matches.length)activeIndex=-1;
+    return matches;
+  };
+  const syncOptions=()=>{
+    const previous=admissionInput.value.trim();
+    values=[...admissionSelect.options].map(option=>option.value).filter(Boolean);
+    const exact=values.find(value=>normalize(value)===normalize(previous));
+    admissionInput.value=exact||'';
+    admissionSelect.value=exact||'';
+    admissionInput.disabled=!values.length;
+    admissionInput.placeholder=values.length?'전형명을 입력하거나 목록에서 선택':'대학명을 선택하면 전형명이 표시됩니다';
+    close();
+  };
+  new MutationObserver(syncOptions).observe(admissionSelect,{childList:true});
+  admissionInput.addEventListener('focus',render);
+  admissionInput.addEventListener('input',()=>{activeIndex=-1;syncExact();render()});
+  admissionInput.addEventListener('change',syncExact);
+  admissionInput.addEventListener('keydown',event=>{
+    let options=[...popup.querySelectorAll('[role="option"]')];
+    if(event.key==='ArrowDown'||event.key==='ArrowUp'){
+      if(popup.hidden){render();options=[...popup.querySelectorAll('[role="option"]')]}
+      if(!options.length)return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      const delta=event.key==='ArrowDown'?1:-1;
+      activeIndex=(activeIndex+delta+options.length)%options.length;
+      options.forEach((option,index)=>option.setAttribute('aria-selected',String(index===activeIndex)));
+      const active=options[activeIndex];
+      admissionInput.setAttribute('aria-activedescendant',active.id);
+      active.scrollIntoView({block:'nearest'});
+      return;
+    }
+    if(event.key==='Enter'&&!popup.hidden&&activeIndex>=0){
+      const active=options[activeIndex];
+      if(active){event.preventDefault();event.stopImmediatePropagation();choose(active.textContent)}
+      return;
+    }
+    if(event.key==='Escape'&&!popup.hidden){event.preventDefault();event.stopImmediatePropagation();close()}
+  },true);
+  deptInput.addEventListener('focus',close,true);
+  document.getElementById('simpleSearchButton')?.addEventListener('click',close,true);
+  document.addEventListener('click',event=>{
+    if(!event.target.closest('#simpleAdmissionInput')&&!event.target.closest('#simpleAdmissionAutocomplete'))close();
+  });
+
+  const priorSearchRows=searchRows;
+  searchRows=function(){
+    const rows=priorSearchRows();
+    const query=normalize(admissionInput.value);
+    return query?rows.filter(row=>normalize(row.admission).includes(query)):rows;
+  };
+  const priorConditionText=simpleConditionText;
+  simpleConditionText=function(){
+    const parts=priorConditionText().split(' / ');
+    if(parts.length>3)parts[3]=admissionInput.value.trim()||'전체 전형명';
+    return parts.join(' / ');
+  };
+  document.querySelectorAll('#searchClear,#selectClear').forEach(button=>button.addEventListener('click',()=>{
+    admissionInput.value='';
+    requestAnimationFrame(syncOptions);
+  }));
+  syncOptions();
 })();
 </script>
 
