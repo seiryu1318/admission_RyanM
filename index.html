@@ -3229,7 +3229,7 @@ body.mobile header .header-nav-stack{
   grid-template-columns:repeat(2,minmax(0,1fr))!important;
   gap:6px!important;
   width:min(100%,clamp(280px,82vw,330px))!important;
-  margin:7px auto 2px!important;
+  margin:clamp(14px,4vw,18px) auto 3px!important;
   align-items:stretch!important;
 }
 html body.mobile header .header-nav-stack>a.return-btn,
@@ -4369,7 +4369,7 @@ document.addEventListener('click',event=>{
   const launcher=document.getElementById('navLauncher');
   const popup=document.getElementById('navPopup');
   if(!dock||!launcher||!popup)return;
-  const storageKey=document.body.classList.contains('mobile')?'admissionNavPositionV88Mobile':'admissionNavPositionV88Pc';
+  const storageKey=document.body.classList.contains('mobile')?'admissionNavPositionV93ResponsiveMobile':'admissionNavPositionV93ResponsivePc';
   const clamp=(value,min,max)=>Math.min(Math.max(value,min),Math.max(min,max));
   const syncPopup=()=>{
     const launcherRect=launcher.getBoundingClientRect();
@@ -4380,7 +4380,19 @@ document.addEventListener('click',event=>{
     popup.style.position='fixed';popup.style.left=`${left}px`;popup.style.right='auto';
     popup.style.top=`${top}px`;popup.style.bottom='auto';popup.style.transform='none';
   };
+  let manualPositioned=false;
+  const applyDefaultAnchor=()=>{
+    manualPositioned=false;
+    dock.classList.remove('nav-user-positioned');
+    dock.style.setProperty('left','auto','important');
+    dock.style.setProperty('right','18px','important');
+    dock.style.setProperty('top','calc(64% - 29px)','important');
+    dock.style.setProperty('bottom','auto','important');
+    dock.style.setProperty('transform','none','important');
+    syncPopup();
+  };
   const setPosition=(left,top,save=false)=>{
+    manualPositioned=true;
     const rect=launcher.getBoundingClientRect();
     const x=clamp(left,8,window.innerWidth-rect.width-8),y=clamp(top,8,window.innerHeight-rect.height-8);
     dock.classList.add('nav-user-positioned');
@@ -4390,12 +4402,17 @@ document.addEventListener('click',event=>{
     dock.style.setProperty('bottom','auto','important');
     dock.style.setProperty('transform','none','important');
     syncPopup();
-    if(save)try{localStorage.setItem(storageKey,JSON.stringify({left:x,top:y}))}catch(error){}
+    if(save)try{localStorage.setItem(storageKey,JSON.stringify({left:x,top:y,manual:true,schema:'viewport-anchor-v2'}))}catch(error){}
   };
+  let restoredManualPosition=false;
   try{
     const saved=JSON.parse(localStorage.getItem(storageKey)||'null');
-    if(saved&&Number.isFinite(saved.left)&&Number.isFinite(saved.top))setPosition(saved.left,saved.top,false);
+    if(saved&&saved.manual===true&&saved.schema==='viewport-anchor-v2'&&Number.isFinite(saved.left)&&Number.isFinite(saved.top)){
+      setPosition(saved.left,saved.top,false);
+      restoredManualPosition=true;
+    }
   }catch(error){}
+  if(!restoredManualPosition)requestAnimationFrame(applyDefaultAnchor);
 
   let drag=null,suppressClick=false;
   launcher.addEventListener('pointerdown',event=>{
@@ -4431,11 +4448,14 @@ document.addEventListener('click',event=>{
   dock.addEventListener('mouseenter',()=>requestAnimationFrame(syncPopup));
   launcher.addEventListener('click',()=>requestAnimationFrame(syncPopup));
   new MutationObserver(()=>requestAnimationFrame(syncPopup)).observe(dock,{attributes:true,attributeFilter:['class']});
-  window.addEventListener('resize',()=>{
-    if(dock.classList.contains('nav-user-positioned')){
+  const syncDockToViewport=()=>requestAnimationFrame(()=>{
+    if(manualPositioned){
       const rect=launcher.getBoundingClientRect();setPosition(rect.left,rect.top,false);
-    }else syncPopup();
-  },{passive:true});
+    }else applyDefaultAnchor();
+  });
+  window.addEventListener('resize',syncDockToViewport,{passive:true});
+  window.visualViewport?.addEventListener('resize',syncDockToViewport,{passive:true});
+  window.addEventListener('orientationchange',syncDockToViewport,{passive:true});
   requestAnimationFrame(syncPopup);
 })();
 </script>
@@ -4701,20 +4721,47 @@ document.addEventListener('click',event=>{
 
   const yearsFor=value=>value==='all'?YEARS:value==='recent4'?[2023,2024,2025,2026]:value==='recent2'?[2025,2026]:[Number(value)||2026];
   const keyFor=(year,type)=>`${year}|${type}`;
-  const byYearType=new Map();
-  for(const row of records){
-    const key=keyFor(row.year,row.type);
-    if(!byYearType.has(key))byYearType.set(key,[]);
-    byYearType.get(key).push(row);
-  }
+  let byYearType=null;
+  const ensureYearTypeIndex=()=>{
+    if(byYearType)return byYearType;
+    const index=new Map();
+    for(const row of records){
+      const key=keyFor(row.year,row.type);
+      if(!index.has(key))index.set(key,[]);
+      index.get(key).push(row);
+    }
+    byYearType=index;
+    return index;
+  };
   const eligibleRows=()=>{
+    const index=ensureYearTypeIndex();
     const years=yearsFor(yearSelect.value);
     const types=typeSelect.value==='all'?TYPES:[typeSelect.value];
     const rows=[];
-    for(const year of years)for(const type of types)rows.push(...(byYearType.get(keyFor(year,type))||[]));
+    for(const year of years)for(const type of types)rows.push(...(index.get(keyFor(year,type))||[]));
     return rows;
   };
   const normalizeName=value=>String(value||'').normalize('NFKC').replace(/\s+/g,'').toLocaleLowerCase('ko');
+  const linkedIndexCache=new Map();
+  const linkedIndexForSelection=()=>{
+    const selectionKey=`${yearSelect.value}|${typeSelect.value}`;
+    if(linkedIndexCache.has(selectionKey))return linkedIndexCache.get(selectionKey);
+    const grouped=new Map();
+    for(const row of eligibleRows()){
+      if(!row.univ)continue;
+      let entry=grouped.get(row.univ);
+      if(!entry){entry={name:row.univ,normalized:normalizeName(row.univ),admissions:new Set()};grouped.set(row.univ,entry)}
+      if(row.admission)entry.admissions.add(row.admission);
+    }
+    const entries=[...grouped.values()]
+      .map(entry=>({...entry,admissions:[...entry.admissions].sort((a,b)=>a.localeCompare(b,'ko'))}))
+      .sort((a,b)=>a.name.localeCompare(b.name,'ko'));
+    linkedIndexCache.set(selectionKey,entries);
+    return entries;
+  };
+  const warmLinkedIndex=()=>linkedIndexForSelection();
+  if('requestIdleCallback' in window)requestIdleCallback(warmLinkedIndex,{timeout:1200});
+  else setTimeout(warmLinkedIndex,120);
   const setAdmissionOptions=(values,previous='')=>{
     admissionSelect.replaceChildren();
     const first=document.createElement('option');
@@ -4731,25 +4778,24 @@ document.addEventListener('click',event=>{
     if(values.includes(previous))admissionSelect.value=previous;
   };
   const refreshLinkedOptions=()=>{
-    const rows=eligibleRows();
-    const universities=[...new Set(rows.map(row=>row.univ).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ko'));
     const typed=univInput.value.trim();
     const normalized=normalizeName(typed);
-    const suggestedUniversities=typed.length>=3?universities.filter(name=>normalizeName(name).includes(normalized)):[];
+    if(typed.length<3){univList.replaceChildren();setAdmissionOptions([]);return}
+    const linkedEntries=linkedIndexForSelection();
+    const suggestedUniversities=linkedEntries
+      .filter(entry=>entry.normalized.includes(normalized))
+      .slice(0,100)
+      .map(entry=>entry.name);
     univList.replaceChildren(...suggestedUniversities.map(value=>{
       const option=document.createElement('option');
       option.value=value;
       return option;
     }));
-    const exactNames=universities.filter(name=>normalizeName(name)===normalized);
-    const chosenNames=typed.length>=3?(exactNames.length?new Set(exactNames):new Set(
-      universities.filter(name=>normalizeName(name).includes(normalized))
-    )):new Set();
+    const exactEntries=linkedEntries.filter(entry=>entry.normalized===normalized);
+    const chosenEntries=exactEntries.length?exactEntries:linkedEntries.filter(entry=>entry.normalized.includes(normalized));
     const previous=admissionSelect.value;
-    const admissions=[...new Set(rows
-      .filter(row=>chosenNames.has(row.univ))
-      .map(row=>row.admission)
-      .filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ko'));
+    const admissions=[...new Set(chosenEntries.flatMap(entry=>entry.admissions))]
+      .sort((a,b)=>a.localeCompare(b,'ko'));
     setAdmissionOptions(admissions,previous);
   };
 
@@ -4826,6 +4872,7 @@ document.addEventListener('click',event=>{
 
   const normalize=value=>String(value||'').normalize('NFKC').replace(/\s+/g,'').toLocaleLowerCase('ko');
   let values=[];
+  let valueEntries=[];
   let activeIndex=-1;
   const close=()=>{
     popup.hidden=true;
@@ -4848,7 +4895,7 @@ document.addEventListener('click',event=>{
   const render=()=>{
     const query=normalize(admissionInput.value);
     if(query.length<3){close();popup.replaceChildren();return []}
-    const matches=(query?values.filter(value=>normalize(value).includes(query)):values).slice(0,100);
+    const matches=valueEntries.filter(entry=>entry.normalized.includes(query)).slice(0,100).map(entry=>entry.value);
     popup.replaceChildren(...matches.map((value,index)=>{
       const button=document.createElement('button');
       button.type='button';
@@ -4869,6 +4916,7 @@ document.addEventListener('click',event=>{
   const syncOptions=()=>{
     const previous=admissionInput.value.trim();
     values=[...admissionSelect.options].map(option=>option.value).filter(Boolean);
+    valueEntries=values.map(value=>({value,normalized:normalize(value)}));
     const exact=values.find(value=>normalize(value)===normalize(previous));
     admissionInput.value=exact||'';
     admissionSelect.value=exact||'';
